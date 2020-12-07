@@ -57,7 +57,7 @@ MIDDLEWARE = [
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': 'localhost:9200'
+        'hosts': 'https://8tb0wcmami:kug0rkxtwu@maple-859089494.us-east-1.bonsaisearch.net:443'
     },
 }
 
