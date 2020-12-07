@@ -1,0 +1,68 @@
+from django_elasticsearch_dsl_drf.constants import (
+    LOOKUP_FILTER_RANGE,
+    LOOKUP_QUERY_IN,
+    LOOKUP_QUERY_GT,
+    LOOKUP_QUERY_GTE,
+    LOOKUP_QUERY_LT,
+    LOOKUP_QUERY_LTE,
+)
+from django_elasticsearch_dsl_drf.pagination import LimitOffsetPagination
+from django_elasticsearch_dsl_drf.filter_backends import (
+    FilteringFilterBackend,
+    OrderingFilterBackend,
+    DefaultOrderingFilterBackend,
+    SearchFilterBackend,
+)
+from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
+
+from spotify import documents as spotify_documents
+from spotify import serializers as spotify_serializers
+
+
+class SpotifyViewSet(DocumentViewSet):
+    document = spotify_documents.SpotifyDocument
+    serializer_class = spotify_serializers.SpotifyDocumentSerializer
+    lookup_field = 'id'
+    filter_backends = [
+        FilteringFilterBackend,
+        OrderingFilterBackend,
+        DefaultOrderingFilterBackend,
+        SearchFilterBackend,
+    ]
+
+    # Define search fields
+    search_fields = (
+        'name',
+        'year',
+        'artists'
+    )
+
+    # Filter fields
+    filter_fields = {
+        'acousticness':'acousticness',
+        'artists':'artists.raw' ,
+        'danceability': 'danceability',
+        'duration_ms':'duration_ms',
+        'energy':'energy',
+        'explicit': 'explicit',
+        'id': 'id.raw',
+        'instrumentalness': 'instrumentalness',
+        'key': 'key',
+        'liveness': 'liveness',
+        'loudness': 'loudness',
+        'mode': 'mode',
+        'name': 'name',
+        'popularity': 'popularity',
+        'release_date':'release_date',
+        'speechiness':'speechiness',
+        'tempo': 'tempo',
+        'valence': 'valence',
+        'year' :'year.raw',
+    }
+
+    # Define ordering fields
+    ordering_fields = {
+        'year': 'year.raw'
+    }
+    pagination_class = LimitOffsetPagination
+    # Specify default ordering

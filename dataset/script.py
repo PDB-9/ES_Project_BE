@@ -19,7 +19,7 @@ else:
             continue
         else:
             # create json file that can be used with CURL or Postman
-            jsonfile_curl.write('{ "index" : { "_index" : "spotify-test", "_type" : "track", "_id" :'+str(id_idx) +' } } \n')
+            jsonfile_curl.write('{ "index" : { "_index" : "spotify-beta", "_type" : "track", "_id" :'+str(id_idx) +' } } \n')
             json.dump(row, jsonfile_curl)
             jsonfile_curl.write('\n')
             id_idx += 1
