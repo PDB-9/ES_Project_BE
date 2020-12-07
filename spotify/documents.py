@@ -47,6 +47,7 @@ class SpotifyDocument(Document):
         analyzer=html_strip,
         fields={
             'raw': fields.KeywordField(analyzer='keyword'),
+            'suggest': fields.CompletionField(),
         }
     )
     popularity = fields.IntegerField()

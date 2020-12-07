@@ -6,12 +6,14 @@ from django_elasticsearch_dsl_drf.constants import (
     LOOKUP_QUERY_LT,
     LOOKUP_QUERY_LTE,
 )
+from django_elasticsearch_dsl_drf.constants import SUGGESTER_COMPLETION
 from django_elasticsearch_dsl_drf.pagination import LimitOffsetPagination
 from django_elasticsearch_dsl_drf.filter_backends import (
     FilteringFilterBackend,
     OrderingFilterBackend,
     DefaultOrderingFilterBackend,
     SearchFilterBackend,
+    SuggesterFilterBackend
 )
 from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
 
@@ -28,6 +30,7 @@ class SpotifyViewSet(DocumentViewSet):
         OrderingFilterBackend,
         DefaultOrderingFilterBackend,
         SearchFilterBackend,
+        SuggesterFilterBackend,
     ]
 
     # Define search fields
@@ -36,6 +39,18 @@ class SpotifyViewSet(DocumentViewSet):
         'year',
         'artists'
     )
+    suggester_fields = {
+        'name_suggest': {
+            'field': 'name.suggest',
+            'suggesters': [
+                SUGGESTER_COMPLETION,
+            ],
+            'options': {
+                'size': 20,  # Override default number of suggestions
+                'skip_duplicates': True,  # Whether duplicate suggestions should be filtered out.
+            },
+        }
+    }
 
     # Filter fields
     filter_fields = {
@@ -51,7 +66,7 @@ class SpotifyViewSet(DocumentViewSet):
         'liveness': 'liveness',
         'loudness': 'loudness',
         'mode': 'mode',
-        'name': 'name',
+        'name': 'name.raw',
         'popularity': 'popularity',
         'release_date':'release_date',
         'speechiness':'speechiness',
