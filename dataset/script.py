@@ -1,6 +1,7 @@
 import csv
 import json
 import pandas as pd
+import ast
 from elasticsearch import Elasticsearch, helpers
 df = pd.read_csv (r'data.csv')
 if(df.isnull().sum().sum() !=0):
@@ -18,8 +19,12 @@ else:
             id_idx+=1
             continue
         else:
+            # convert string of list to list
+            artists=ast.literal_eval(row['artists'])
+            row['artists']=[artist.strip() for artist in artists]
+
             # create json file that can be used with CURL or Postman
-            jsonfile_curl.write('{ "index" : { "_index" : "spotify-beta", "_type" : "track", "_id" :'+str(id_idx) +' } } \n')
+            jsonfile_curl.write('{ "index" : { "_index" : "spotify", "_type" : "track", "_id" :'+str(id_idx) +' } } \n')
             json.dump(row, jsonfile_curl)
             jsonfile_curl.write('\n')
             id_idx += 1
@@ -29,9 +34,10 @@ else:
             jsonfile.write('\n')
 
     # Init ES
-    es = Elasticsearch()
+    es= Elasticsearch()
+    # es = Elasticsearch(['https://xobmda9nb2:9x9we24vv1@fir-144348184.us-east-1.bonsaisearch.net:443'])
     # Create index
-    es.indices.create(index='spotify-beta', ignore=400)
+    es.indices.create(index='spotify', ignore=400)
     # Add data from json file to ES cluster
     with open("data.json") as json_file:
-        helpers.bulk(es, json_file, index='spotify-beta', doc_type='track')
+        helpers.bulk(es, json_file, index='spotify', doc_type='track')
