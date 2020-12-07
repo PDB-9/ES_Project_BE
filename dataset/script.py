@@ -28,7 +28,10 @@ else:
             json.dump(row, jsonfile)
             jsonfile.write('\n')
 
-    # add data from json file to ES cluster
+    # Init ES
     es = Elasticsearch()
+    # Create index
+    es.indices.create(index='spotify-beta', ignore=400)
+    # Add data from json file to ES cluster
     with open("data.json") as json_file:
         helpers.bulk(es, json_file, index='spotify-beta', doc_type='track')
