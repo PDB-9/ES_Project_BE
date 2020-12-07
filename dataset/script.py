@@ -19,7 +19,7 @@ else:
             continue
         else:
             # create json file that can be used with CURL or Postman
-            jsonfile_curl.write('{ "index" : { "_index" : "spotify-test", "_type" : "track", "_id" :'+str(id_idx) +' } } \n')
+            jsonfile_curl.write('{ "index" : { "_index" : "spotify-beta", "_type" : "track", "_id" :'+str(id_idx) +' } } \n')
             json.dump(row, jsonfile_curl)
             jsonfile_curl.write('\n')
             id_idx += 1
@@ -28,7 +28,10 @@ else:
             json.dump(row, jsonfile)
             jsonfile.write('\n')
 
-    # add data from json file to ES cluster
+    # Init ES
     es = Elasticsearch()
+    # Create index
+    es.indices.create(index='spotify-beta', ignore=400)
+    # Add data from json file to ES cluster
     with open("data.json") as json_file:
         helpers.bulk(es, json_file, index='spotify-beta', doc_type='track')
