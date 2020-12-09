@@ -29,11 +29,20 @@ Jalankan perintah berikut untuk melakukan _clone repository_:
     git clone https://github.com/PDB-9/ES_Project_BE.git
     cd ES_Project_BE
 
-Pastikan Elasticsearch sudah berjalan pada _background_. Jika belum, silahkan ikuti perintah pada tautan [ini](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started-install.html) untuk menginstal dan menjalankan Elasticsearch. Setelah itu, ikuti langkah berikut untuk menjalankan Django:
+```diff
+- Catatan: Sesuaikan url Elasticsearch pada file settings.py dan Script.py sebelum menjalankan proyek
+```
 
-1. python3 -m venv env
-2. source env/bin/activate
-3. pip3 install -r requirements.txt
-4. cd dataset
-5. python3 Script.py
-6. python3 manage.py runserver
+Pastikan Elasticsearch sudah berjalan pada _background_. Jika belum, silahkan ikuti perintah pada tautan [ini](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started-install.html) untuk menginstal dan menjalankan Elasticsearch.
+
+### Untuk Pertama Kali
+    python3 -m venv env
+    env/bin/activate
+    pip3 install -r requirements.txt
+    cd dataset
+    python3 Script.py
+
+### Run Server
+    python3 manage.py runserver
+
+
