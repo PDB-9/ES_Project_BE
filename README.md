@@ -33,16 +33,22 @@ Jalankan perintah berikut untuk melakukan _clone repository_:
 - Catatan: Sesuaikan url Elasticsearch pada file settings.py dan Script.py sebelum menjalankan proyek
 ```
 
-Pastikan Elasticsearch sudah berjalan pada _background_. Jika belum, silahkan ikuti perintah pada tautan [ini](https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started-install.html) untuk menginstal dan menjalankan Elasticsearch.
+Pastikan Elasticsearch sudah berjalan pada _background_. Untuk menjalankan Elasticsearch dengan Docker, lakukan
+
+    docker-compose up
+
+Untuk memastikan nodes sudah berhasil berjalan, jalankan perintah berikut
+
+    curl -X GET "localhost:9200/_cat/nodes?v&pretty"
 
 ### Untuk Pertama Kali
+
     python3 -m venv env
-    env/bin/activate
+    source env/bin/activate
     pip3 install -r requirements.txt
     cd dataset
     python3 Script.py
 
 ### Run Server
+
     python3 manage.py runserver
-
-
