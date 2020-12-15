@@ -36,7 +36,7 @@ class SpotifyViewSet(DocumentViewSet):
     # Define search fields
     search_fields = (
         'name',
-        'year',
+        'release_date',
         'artists'
     )
     suggester_fields = {
