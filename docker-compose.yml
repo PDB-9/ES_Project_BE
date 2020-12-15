@@ -16,8 +16,6 @@ services:
         hard: -1
     volumes:
       - data01:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
     networks:
       - elastic
   es02:
@@ -54,6 +52,8 @@ services:
         hard: -1
     volumes:
       - data03:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
     networks:
       - elastic
 

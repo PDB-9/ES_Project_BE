@@ -55,7 +55,7 @@ class SpotifyViewSet(DocumentViewSet):
     # Filter fields
     filter_fields = {
         'acousticness':'acousticness',
-        'artists':'artists.raw' ,
+        'artists':'artists' ,
         'danceability': 'danceability',
         'duration_ms':'duration_ms',
         'energy':'energy',
@@ -66,13 +66,13 @@ class SpotifyViewSet(DocumentViewSet):
         'liveness': 'liveness',
         'loudness': 'loudness',
         'mode': 'mode',
-        'name': 'name.raw',
+        'name': 'name',
         'popularity': 'popularity',
         'release_date':'release_date',
         'speechiness':'speechiness',
         'tempo': 'tempo',
         'valence': 'valence',
-        'year' :'year.raw',
+        'year' :'year',
     }
 
     # Define ordering fields
