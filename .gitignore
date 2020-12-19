@@ -3,6 +3,8 @@ node_modules
 /dist
 env
 /env
+venv
+/venv
 /dataset/data.json
 /dataset/data_curl.json
 
