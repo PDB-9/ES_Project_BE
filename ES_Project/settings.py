@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -68,6 +69,7 @@ ELASTICSEARCH_DSL = {
 DJANGO_LOGGING = {
     "CONSOLE_LOG": False,
 # "ELASTICSEARCH_ENABLED" : True,
+    "LOG_PATH": '{}/staticfiles/logs'.format(BASE_DIR),
     "ELASTICSEARCH_ENABLED" : False,
     "LOG_LEVEL": "INFO",
     "RESPONSE_FIELDS" :('content'),
@@ -189,8 +191,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/staticfiles/'
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'staticfiles'),
+)
 # Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())

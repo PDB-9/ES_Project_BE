@@ -18,6 +18,8 @@ services:
       - data01:/usr/share/elasticsearch/data
     networks:
       - elastic
+    ports:
+      - 7200:9200
   es02:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
     container_name: es02
@@ -36,6 +38,8 @@ services:
       - data02:/usr/share/elasticsearch/data
     networks:
       - elastic
+    ports:
+      - 8200:9200
   es03:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
     container_name: es03

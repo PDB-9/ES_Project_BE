@@ -24,7 +24,7 @@ else:
             row['artists']=[artist.strip() for artist in artists]
 
             # create json file that can be used with CURL or Postman
-            jsonfile_curl.write('{ "index" : { "_index" : "spotify", "_type" : "track", "_id" :'+str(id_idx) +' } } \n')
+            jsonfile_curl.write('{ "index" : { "_index" : "spotipy", "_type" : "track", "_id" :'+str(id_idx) +' } } \n')
             json.dump(row, jsonfile_curl)
             jsonfile_curl.write('\n')
             id_idx += 1
@@ -34,11 +34,16 @@ else:
             jsonfile.write('\n')
 
     # Init ES
-    # es= Elasticsearch()
-    es = Elasticsearch(['https://fcpai8781z:rpb78t2zu0@jasmine-450285335.us-east-1.bonsaisearch.net:443'])
-    es
+    es= Elasticsearch()
+    # es = Elasticsearch(['https://fcpai8781z:rpb78t2zu0@jasmine-450285335.us-east-1.bonsaisearch.net:443'])
+    setup= {
+        "settings":{
+            "number_of_shards":5,
+            "number_of_replicas":2
+        }
+    }
     # Create index
-    es.indices.create(index='spotify', ignore=400)
+    es.indices.create(index='spotipy', ignore=400,body = setup)
     # Add data from json file to ES cluster
     with open("data.json") as json_file:
-        helpers.bulk(es, json_file, index='spotify', doc_type='track')
+        helpers.bulk(es, json_file, index='spotipy', doc_type='track')
