@@ -43,7 +43,7 @@ else:
         }
     }
     # Create index
-    es.indices.create(index='spotipy', ignore=400,body = setup)
+    es.indices.create(index='spotify', ignore=400,body = setup)
     # Add data from json file to ES cluster
     with open("data.json") as json_file:
-        helpers.bulk(es, json_file, index='spotipy', doc_type='track')
+        helpers.bulk(es, json_file, index='spotify', doc_type='track')
