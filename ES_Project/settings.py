@@ -67,16 +67,7 @@ ELASTICSEARCH_DSL = {
         # 'hosts': 'localhost:9200'
     },
 }
-DJANGO_LOGGING = {
-    "CONSOLE_LOG": False,
-# "ELASTICSEARCH_ENABLED" : True,
-    "LOG_PATH": '{}/staticfiles/logs'.format(BASE_DIR),
-    "ELASTICSEARCH_ENABLED" : False,
-    "LOG_LEVEL": "INFO",
-    "RESPONSE_FIELDS" :('content'),
-    "IGNORED_PATHS" : ['/admin', '/static', '/favicon.ico', '/log']
 
-}
 # LOGGING = {
 #     # ...
 #     'handlers': {
@@ -202,7 +193,16 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATICFILES_DIRS = (
 #     os.path.join(BASE_DIR, 'static'),
 # )
+DJANGO_LOGGING = {
+    "CONSOLE_LOG": False,
+# "ELASTICSEARCH_ENABLED" : True,
+    "LOG_PATH": '{}/logs'.format(STATIC_ROOT),
+    "ELASTICSEARCH_ENABLED" : False,
+    "LOG_LEVEL": "INFO",
+    "RESPONSE_FIELDS" :('content'),
+    "IGNORED_PATHS" : ['/admin', '/static', '/favicon.ico', '/log']
 
+}
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Configure Django App for Heroku.

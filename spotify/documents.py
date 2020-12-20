@@ -4,7 +4,7 @@ from django_elasticsearch_dsl import Document, Index, fields
 
 from spotify import models as spotify_models
 
-spotify_index = Index('spotipy')
+spotify_index = Index('spotify')
 spotify_index.settings(
     number_of_shards=5,
     number_of_replicas=2,

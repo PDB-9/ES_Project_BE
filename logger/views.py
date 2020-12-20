@@ -5,6 +5,7 @@ from rest_framework import viewsets
 from .serializers import LogSerializers
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.conf import settings as conf_settings
 # Create your views here.
 class LogViewSet(viewsets.ViewSet):
     pagination_class = None
@@ -12,7 +13,7 @@ class LogViewSet(viewsets.ViewSet):
 
     @action(detail=False)
     def get(self, request):
-        infile = r"staticfiles\logs\app.log"
+        infile = r"{}\app.log".format(conf_settings.STATIC_ROOT)
         data_searched = []
         with open(infile) as f:
             f = f.readlines()
