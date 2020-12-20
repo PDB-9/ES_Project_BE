@@ -13,7 +13,7 @@ class LogViewSet(viewsets.ViewSet):
 
     @action(detail=False)
     def get(self, request):
-        infile = r"{}\app.log".format(conf_settings.STATIC_ROOT)
+        infile = r"app\staticfiles\logs\app.log"
         data_searched = []
         with open(infile) as f:
             f = f.readlines()
