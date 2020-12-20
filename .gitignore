@@ -8,6 +8,7 @@ venv
 /dataset/data.json
 /dataset/data_curl.json
 /logs
+/staticfiles
 
 # local env files
 .env.local
