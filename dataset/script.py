@@ -36,6 +36,7 @@ else:
     # Init ES
     # es= Elasticsearch()
     es = Elasticsearch(['https://fcpai8781z:rpb78t2zu0@jasmine-450285335.us-east-1.bonsaisearch.net:443'])
+    es
     # Create index
     es.indices.create(index='spotify', ignore=400)
     # Add data from json file to ES cluster

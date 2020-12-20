@@ -19,9 +19,12 @@ from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
 
 from spotify import documents as spotify_documents
 from spotify import serializers as spotify_serializers
+import logging
+
 
 
 class SpotifyViewSet(DocumentViewSet):
+    logger = logging.getLogger(__name__)
     document = spotify_documents.SpotifyDocument
     serializer_class = spotify_serializers.SpotifyDocumentSerializer
     lookup_field = 'id'
@@ -81,3 +84,6 @@ class SpotifyViewSet(DocumentViewSet):
     }
     pagination_class = LimitOffsetPagination
     # Specify default ordering
+
+    logger.info('Query{}'.format(DocumentViewSet.get_queryset))
+

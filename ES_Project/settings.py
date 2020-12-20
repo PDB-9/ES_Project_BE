@@ -41,12 +41,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_elasticsearch_dsl',
     'django_elasticsearch_dsl_drf',
-
+    'django_logging',
     # Project apps
     'spotify',
+    'logger'
 ]
 
 MIDDLEWARE = [
+    'django_logging.middleware.DjangoLoggingMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -63,6 +65,40 @@ ELASTICSEARCH_DSL = {
         # 'hosts': 'localhost:9200'
     },
 }
+DJANGO_LOGGING = {
+    "CONSOLE_LOG": False,
+# "ELASTICSEARCH_ENABLED" : True,
+    "ELASTICSEARCH_ENABLED" : False,
+    "LOG_LEVEL": "INFO",
+    "RESPONSE_FIELDS" :('content'),
+    "IGNORED_PATHS" : ['/admin', '/static', '/favicon.ico', '/log']
+
+}
+# LOGGING = {
+#     # ...
+#     'handlers': {
+#         # ...
+#         'logstash': {
+#             'level': 'INFO',
+#             'class': 'logstash.TCPLogstashHandler',
+#             'port': 5000,
+#             'host': '0.0.0.0', # IP/Name of the EC2 instance,
+#             'version': 1,
+#             'message_type': 'logstash',
+#             'fqdn': True,
+#             'tags': ['meetnotes'],
+#         },
+#     },
+#     'logger': {
+#         # ...
+#         'app_name': {
+#             # file will accept only ERROR and higher level
+#             'handlers': ['file', 'logstash'],
+#             'level': DEBUG,
+#         },
+#     },
+# }
+
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
