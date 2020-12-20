@@ -61,6 +61,25 @@ services:
     networks:
       - elastic
 
+#  logstash:
+#    image: docker.elastic.co/logstash/logstash:7.10.1
+#    ports:
+#      - 5200:9200
+#    command: logstash
+#    volumes:
+#        - type: bind
+#          source: ./logstash/logstash.yml
+#          target: /usr/share/logstash/config/logstash.yml
+#          read_only: true
+#        - type: bind
+#          source: ./logstash/pipeline
+#          target: /usr/share/logstash/pipeline
+#          read_only: true
+#    environment:
+#      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+#    networks:
+#      - elastic
+
 volumes:
   data01:
     driver: local
