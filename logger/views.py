@@ -7,6 +7,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from elasticsearch_dsl.connections import connections
 from elasticsearch_dsl import Search, Q, A
+from django.conf import settings as conf_settings
 
 # Create your views here.
 class LogViewSet(viewsets.ViewSet):
@@ -17,7 +18,7 @@ class LogViewSet(viewsets.ViewSet):
     def get(self, request):
         # Define a default Elasticsearch client
         # client = connections.create_connection(hosts=['http://localhost:9200'])
-        client = connections.create_connection(hosts=['https://fcpai8781z:rpb78t2zu0@jasmine-450285335.us-east-1.bonsaisearch.net:443'])
+        client = connections.create_connection(hosts=conf_settings.ELASTICSEARCH_HOST)
         s = Search(using=client, index="log-app")
         a = A('terms', field='message.request.data.search.keyword')
         s.aggs.bucket('search', a)

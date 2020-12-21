@@ -16,6 +16,7 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+ELASTICSEARCH_HOST = os.environ.get('ES')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -63,7 +64,7 @@ MIDDLEWARE = [
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': 'https://fcpai8781z:rpb78t2zu0@jasmine-450285335.us-east-1.bonsaisearch.net:443'
+        'hosts': ELASTICSEARCH_HOST
         # 'hosts': 'localhost:9200'
     },
 }
@@ -206,7 +207,7 @@ STATIC_URL = '/static/'
 DJANGO_LOGGING = {
     "CONSOLE_LOG": False,
     "LOG_PATH": '{}/logs'.format(STATIC_ROOT),
-    "ELASTICSEARCH_HOSTS":"[https://fcpai8781z:rpb78t2zu0@jasmine-450285335.us-east-1.bonsaisearch.net:443]",
+    "ELASTICSEARCH_HOSTS":ELASTICSEARCH_HOST,
     "ELASTICSEARCH_ENABLED" : True,
     # "ELASTICSEARCH_ENABLED" : False,
     "ELASTICSEARCH_INDEX" : "log-app",
