@@ -3,6 +3,10 @@ import json
 import pandas as pd
 import ast
 from elasticsearch import Elasticsearch, helpers
+from dotenv import load_dotenv
+import os
+load_dotenv()
+ELASTICSEARCH_HOST = os.environ.get('ES')
 df = pd.read_csv (r'data.csv')
 if(df.isnull().sum().sum() !=0):
     print("Error! Data has null value")
@@ -33,8 +37,8 @@ else:
             json.dump(row, jsonfile)
             jsonfile.write('\n')
 
-    # Init ES
-    es= Elasticsearch()
+    # # Init ES
+    es= Elasticsearch([ELASTICSEARCH_HOST])
     # es = Elasticsearch(['https://fcpai8781z:rpb78t2zu0@jasmine-450285335.us-east-1.bonsaisearch.net:443'])
     setup= {
         "settings":{
@@ -44,6 +48,7 @@ else:
     }
     # Create index
     es.indices.create(index='spotify', ignore=400,body = setup)
+    # es.indices.create(index='log-app', ignore=400)
     # Add data from json file to ES cluster
     with open("data.json") as json_file:
         helpers.bulk(es, json_file, index='spotify', doc_type='track')
