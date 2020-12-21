@@ -15,7 +15,7 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -67,31 +67,41 @@ ELASTICSEARCH_DSL = {
         # 'hosts': 'localhost:9200'
     },
 }
-
-# LOGGING = {
-#     # ...
-#     'handlers': {
-#         # ...
-#         'logstash': {
-#             'level': 'INFO',
-#             'class': 'logstash.TCPLogstashHandler',
-#             'port': 5000,
-#             'host': '0.0.0.0', # IP/Name of the EC2 instance,
-#             'version': 1,
-#             'message_type': 'logstash',
-#             'fqdn': True,
-#             'tags': ['meetnotes'],
-#         },
-#     },
-#     'logger': {
-#         # ...
-#         'app_name': {
-#             # file will accept only ERROR and higher level
-#             'handlers': ['file', 'logstash'],
-#             'level': DEBUG,
-#         },
-#     },
-# }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '[%(asctime)s] %(levelname)s|%(name)s|%(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
+    'handlers': {
+        'applogfile': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': '{}/staticfiles/myproject.log'.format(STATIC_ROOT),
+            'maxBytes': 1024*1024*15,  # 15MB
+            'backupCount': 10,
+            'formatter': 'simple',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        }
+    },
+    'loggers': {
+        'app1': {
+            'handlers': ['applogfile', 'console'],
+            'level': 'DEBUG',
+        },
+        'app2': {
+            'handlers': ['applogfile', 'console'],
+            'level': 'DEBUG',
+        }
+    }
+}
 
 
 REST_FRAMEWORK = {
@@ -187,7 +197,7 @@ STATIC_URL = '/static/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Extra places for collectstatic to find static files.
 # STATICFILES_DIRS = (
@@ -195,9 +205,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # )
 DJANGO_LOGGING = {
     "CONSOLE_LOG": False,
-# "ELASTICSEARCH_ENABLED" : True,
     "LOG_PATH": '{}/logs'.format(STATIC_ROOT),
-    "ELASTICSEARCH_ENABLED" : False,
+    "ELASTICSEARCH_HOSTS":"[https://fcpai8781z:rpb78t2zu0@jasmine-450285335.us-east-1.bonsaisearch.net:443]",
+    "ELASTICSEARCH_ENABLED" : True,
+    # "ELASTICSEARCH_ENABLED" : False,
+    "ELASTICSEARCH_INDEX" : "log-app",
     "LOG_LEVEL": "INFO",
     "RESPONSE_FIELDS" :('content'),
     "IGNORED_PATHS" : ['/admin', '/static', '/favicon.ico', '/log']
