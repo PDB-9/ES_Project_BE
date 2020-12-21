@@ -18,7 +18,10 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-ELASTICSEARCH_HOST = os.environ.get('ES')
+if os.environ.get('ES') is None:
+    ELASTICSEARCH_HOST= "localhost:9200"
+else:
+    ELASTICSEARCH_HOST = os.environ.get('ES')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/

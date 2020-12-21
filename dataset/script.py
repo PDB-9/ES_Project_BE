@@ -6,7 +6,11 @@ from elasticsearch import Elasticsearch, helpers
 from dotenv import load_dotenv
 import os
 load_dotenv()
-ELASTICSEARCH_HOST = os.environ.get('ES')
+if os.environ.get('ES') is None:
+    ELASTICSEARCH_HOST= "localhost:9200"
+else:
+    ELASTICSEARCH_HOST = os.environ.get('ES')
+
 df = pd.read_csv (r'data.csv')
 if(df.isnull().sum().sum() !=0):
     print("Error! Data has null value")
@@ -48,7 +52,6 @@ else:
     }
     # Create index
     es.indices.create(index='spotify', ignore=400,body = setup)
-    # es.indices.create(index='log-app', ignore=400)
     # Add data from json file to ES cluster
     with open("data.json") as json_file:
         helpers.bulk(es, json_file, index='spotify', doc_type='track')
