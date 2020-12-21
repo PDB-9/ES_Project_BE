@@ -209,10 +209,10 @@ STATIC_URL = '/static/'
 DJANGO_LOGGING = {
     "CONSOLE_LOG": False,
     "LOG_PATH": '{}/logs'.format(STATIC_ROOT),
-    "ELASTICSEARCH_HOSTS":"[\""+ELASTICSEARCH_HOST+"\"]",
+    "ELASTICSEARCH_HOSTS":[ELASTICSEARCH_HOST],
     "ELASTICSEARCH_ENABLED" : True,
     # "ELASTICSEARCH_ENABLED" : False,
-    "ELASTICSEARCH_INDEX" : "log-app",
+    "ELASTICSEARCH_INDEX": "log-app",
     "LOG_LEVEL": "INFO",
     "RESPONSE_FIELDS" :('content'),
     "IGNORED_PATHS" : ['/admin', '/static', '/favicon.ico', '/log']
