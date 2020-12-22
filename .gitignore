@@ -9,10 +9,8 @@ venv
 /dataset/data_curl.json
 /logs
 /staticfiles
-.env
 # local env files
-.env.local
-.env.*.local
+
 .idea
 /.idea
 /idea
