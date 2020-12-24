@@ -26,6 +26,7 @@ class LogViewSet(viewsets.ViewSet):
         aggr_dict={}
         for item in t.aggregations.search:
             item.key=item.key.split(":")[-1]
+            item.key=item.key.replace("%", " ")
         for item in t.aggregations.search:
             if item.key in aggr_dict.keys():
                 aggr_dict[item.key] += item.doc_count
