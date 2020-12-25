@@ -22,6 +22,7 @@ if os.environ.get('ES') is None:
     ELASTICSEARCH_HOST= "localhost:9200"
 else:
     ELASTICSEARCH_HOST = os.environ.get('ES')
+    ELASTICSEARCH_HOST_LOG = os.environ.get('ES_LOG')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -212,7 +213,7 @@ STATIC_URL = '/static/'
 DJANGO_LOGGING = {
     "CONSOLE_LOG": False,
     "LOG_PATH": '{}/logs'.format(STATIC_ROOT),
-    "ELASTICSEARCH_HOSTS":[ELASTICSEARCH_HOST],
+    "ELASTICSEARCH_HOSTS":[ELASTICSEARCH_HOST_LOG],
     "ELASTICSEARCH_ENABLED" : True,
     # "ELASTICSEARCH_ENABLED" : False,
     "ELASTICSEARCH_INDEX": "log-app",
